@@ -1,0 +1,9 @@
+<div class="preguntas-container">
+  <h1>Preguntas Frecuentes</h1>
+  <div class="pregunta" *ngFor="let pregunta of preguntas">
+    <h2>{{ pregunta.title }}</h2>
+    <p>{{ pregunta.shortDescription }}</p>
+    <a [routerLink]="['/pregunta-detalle', pregunta.id]" class="btn-ver-mas">Ver más</a>
+  </div>
+  <a routerLink="/portal-contador" class="btn-volver">Volver</a>
+</div>

@@ -1,0 +1,145 @@
+/* Estilos generales */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Fondo con gradiente y efecto moderno */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #143470, #2c5db8);
+  position: relative;
+}
+
+/* Capa de desenfoque para mejor visibilidad del login */
+.login-container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://source.unsplash.com/1600x900/?finance,technology');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+  opacity: 0.3;
+}
+
+
+/* Card de login con efecto vidrio */
+.login-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95); /* Ligero tono blanco pero no puro */
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  color: #4e7aa7; /* Texto en un tono oscuro para contraste */
+}
+
+h1, h2, h3, p {
+  color: #4e759b; /* Asegura que los títulos sean oscuros */
+  font-weight: bold; /* Hace que el título resalte */
+}
+
+button {
+  background: linear-gradient(to right, #2c3e50, #34495e); /* Un azul oscuro elegante */
+  color: white; /* Asegura que el texto en el botón sea visible */
+  font-weight: bold;
+}
+
+button:hover {
+  background: linear-gradient(to right, #1f2d3d, #2c3e50);
+}
+
+a {
+  color: #507192; /* Enlaces oscuros para mejor visibilidad */
+}
+
+a:hover {
+  color: #4c73a0;
+}
+
+
+
+/* Animación para la entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Título del login */
+.login-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #3b4c97;
+}
+
+/* Subtítulo */
+.login-subtitle {
+  font-size: 16px;
+  color: #4a4996;
+  margin-bottom: 20px;
+}
+
+/* Estilos para los campos de formulario */
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field .mat-input-element {
+  color: rgb(71, 115, 172); /* Color del texto */
+}
+
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white; /* Borde blanco */
+}
+
+/* Botón de Ingresar con efecto moderno */
+.login-button {
+  width: 100%;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #1e3c72, #1e3c72);
+  color: rgb(107, 131, 167);
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background: linear-gradient(90deg, #ffffff, #ffffff);
+  transform: scale(1.05);
+}
+
+/* Acciones de login */
+.login-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.login-actions button {
+  color: #ffffff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.login-actions button:hover {
+  color: #95acb6;
+}

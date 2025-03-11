@@ -1,0 +1,34 @@
+<div class="pqrsf-container">
+    <h1>PQRSF</h1>
+    <p>Por favor, selecciona el tipo de PQRSF y describe tu solicitud.</p>
+  
+    <form (ngSubmit)="enviarPqrsf()">
+      <div class="form-group">
+        <label for="tipo">Tipo de PQRSF:</label>
+        <select id="tipo" name="tipo" [(ngModel)]="tipoPqrsf" required>
+          <option value="peticion">Petición</option>
+          <option value="queja">Queja</option>
+          <option value="reclamo">Reclamo</option>
+          <option value="sugerencia">Sugerencia</option>
+          <option value="felicitacion">Felicitación</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="mensaje">Mensaje:</label>
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          [(ngModel)]="mensaje"
+          rows="5"
+          required
+          placeholder="Escribe tu mensaje aquí..."
+        ></textarea>
+      </div>
+  
+      <button type="submit" class="btn-enviar">Enviar</button>
+    </form>
+  
+    <!-- Botón "Volver al Portal" -->
+    <a routerLink="/portal-contador" class="btn-volver">Volver al Portal</a>
+  </div>

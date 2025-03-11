@@ -1,0 +1,64 @@
+<div class="ayuda-container">
+    <!-- Barra superior con botón de regreso -->
+    <div class="top-bar">
+      <button mat-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Regresar
+      </button>
+    </div>
+  
+    <!-- Buscador -->
+    <div class="search-bar">
+      <mat-form-field appearance="outline">
+        <input matInput [(ngModel)]="searchTerm" placeholder="Buscar por frases o palabras clave" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  
+    <!-- Botón de Preguntas Frecuentes -->
+    <div class="action-button">
+      <button mat-raised-button color="primary" (click)="goToFaq()">
+        Preguntas Frecuentes
+      </button>
+    </div>
+  
+    <!-- Guía de acceso a la plataforma -->
+    <div class="action-button">
+      <button mat-raised-button color="accent" (click)="downloadGuide()">
+        Guía de Acceso a la Plataforma
+      </button>
+    </div>
+  
+    <!-- Capacitaciones -->
+    <div class="action-button">
+      <button mat-raised-button color="primary" (click)="goToTutorials()">
+        Capacitaciones
+      </button>
+    </div>
+  
+    <!-- PQRSF -->
+    <div class="action-button">
+      <button mat-raised-button color="accent" (click)="goToPqrsf()">
+        PQRSF (Preguntas, Quejas, Reclamos, Sugerencias y Felicitaciones)
+      </button>
+    </div>
+  
+    <!-- WhatsApp -->
+    <div class="action-button">
+      <button mat-raised-button color="primary" (click)="openWhatsApp()">
+        <mat-icon>whatsapp</mat-icon> Contactar por WhatsApp
+      </button>
+    </div>
+  
+    <!-- Línea de atención -->
+    <div class="info-section">
+      <h3>Línea de Atención</h3>
+      <p>Teléfono: +57 123 456 7890</p>
+      <p>Horario: Lunes a Viernes, 9:00 AM - 4:00 PM</p>
+    </div>
+  
+  <div class="info-section">
+    <h3>Correo Electrónico</h3>
+    <p>
+      <a href="mailto:soporte&#64;sistemadecontabilidad.com">soporte&#64;sistemadecontabilidad.com</a>
+    </p>
+  </div>
