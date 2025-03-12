@@ -21,15 +21,13 @@ export const routes: Routes = [
   { path: 'ayuda', component: AyudaComponent },
   { path: 'capacitaciones', component: CapacitacionesComponent },
   { path: 'portal-contador', component: PortalContadorComponent }, // Ruta del Portal del Contador
+  { path: 'facturacion', component: FacturacionComponent },
   { path: 'acceso-informacion-completa', component: AccesoInformacionCompletaComponent },
   { path: '', redirectTo: '/portal-contador', pathMatch: 'full' }, // Ruta por defecto
   { path: '', redirectTo: '/preguntas-frecuentes', pathMatch: 'full' }, // Ruta por defecto
   { path: '**', redirectTo: '/login' }, // Redirige a /login si la ruta no existe
   { path: '', component: LoginComponent }, // Ruta por defecto (Login)
-  { path: 'login', component: LoginComponent },
-  { path: 'portal-contador', component: PortalContadorComponent }, // Ruta del Portal del Contador
-  { path: 'portal-contador', component: PortalContadorComponent }, // Ruta del Portal del Contador
-  { path: 'facturacion', component: FacturacionComponent }, // Ruta de la vista de Facturación
+  { path: 'login', component: LoginComponent }, // Ruta del Portal del Contador
   { path: '', redirectTo: '/portal-contador', pathMatch: 'full' }, // Ruta por defecto
   { path: '**', redirectTo: '/portal-contador' }, // Redirige a Portal del Contador si la ruta no existe  { path: 'register', component: RegisterComponent }, // Ruta de la vista de crear cuenta
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta por defecto
