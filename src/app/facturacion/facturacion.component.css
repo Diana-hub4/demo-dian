@@ -1,0 +1,36 @@
+.facturacion-container {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    font-weight: 600; /* Semibold */
+    color: #143470;
+    margin-bottom: 10px;
+  }
+  
+  .subtitulo {
+    font-size: 24px;
+    font-weight: 600; /* Semibold */
+    color: #2c5db8;
+    margin-bottom: 20px;
+  }
+  
+  .descripcion {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .contador-facturas {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    font-size: 14px;
+    font-weight: 500;
+  }

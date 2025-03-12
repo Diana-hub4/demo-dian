@@ -115,7 +115,7 @@ export class PortalContadorComponent {
   // Acciones para clientes
   createElectronicInvoice(client: any): void {
     console.log('Facturación electrónica para:', client);
-    this.router.navigate(['/crear-factura-electronica', client.plan]);
+    this.router.navigate(['/facturacion', client.plan]);
   }
 
   createElectronicPayroll(client: any): void {
@@ -137,7 +137,9 @@ export class PortalContadorComponent {
   onPageChange(event: PageEvent): void {
     console.log('Evento de paginación:', event);
   }
-
-  
-
+    // Función para redirigir a la vista de facturación
+  irAFacturacion(): void {
+    this.router.navigate(['/facturacion']);
+  }
 }
+
