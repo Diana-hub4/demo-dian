@@ -1,49 +1,37 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../services/auth.service'; // Ajusta la ruta según tu estructura de carpetas
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common'; // Importa CommonModule
+import { Router } from '@angular/router'; // Importa Router
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
+    MatCardModule,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  email: string = '';
-  loginForm: FormGroup;
-  credentials = {
-    email: '',
-    password: '',
-  };
 
-  // Datos quemados para validar el inicio de sesión
-  validUser = {
-    email: 'admin@example.com',
-    password: 'admin123',
-  };
+export class LoginComponent {
+  mostrarTerminos: boolean = false; // Define la propiedad aquí
+  loginForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService
+    private router: Router // Inyecta Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -53,58 +41,20 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.credentials.email = this.loginForm.value.email;
-      this.credentials.password = this.loginForm.value.password;
-
-      console.log('Credenciales ingresadas:', this.credentials);
-      console.log('Credenciales válidas:', this.validUser);
-
-      // Primero, intenta autenticar con los datos quemados
-      if (
-        this.credentials.email === this.validUser.email &&
-        this.credentials.password === this.validUser.password
-      ) {
-        console.log('Inicio de sesión exitoso (datos quemados)');
-        this.router.navigate(['/portal-contador']); // Redirigir al portal contador
-      } else {
-        // Si no coincide con los datos quemados, intenta autenticar con los usuarios registrados
-        this.authService.login(this.credentials.email, this.credentials.password).subscribe(
-          (response) => {
-            if (response.success) {
-              console.log('Inicio de sesión exitoso (usuario registrado)');
-              this.router.navigate(['/portal-contador']); // Redirige al portal del contador
-            } else {
-              console.error('Error al iniciar sesión:', response.message);
-              alert('Correo electrónico o contraseña incorrectos'); // Mostrar mensaje de error
-            }
-          },
-          (error) => {
-            console.error('Error al iniciar sesión:', error);
-          }
-        );
-      }
-    } else {
-      console.log('Formulario inválido');
-      alert('Por favor, completa el formulario correctamente'); // Mostrar mensaje de error
+      console.log('Formulario enviado:', this.loginForm.value);
+      // Redirige al Portal del Contador
+      this.router.navigate(['/portal-contador']);
     }
   }
 
   onForgotPassword(): void {
-    if (this.email) {
-      this.authService.forgotPassword(this.email).subscribe({
-        next: (response: any) => {
-          alert(response.message);
-        },
-        error: (error: any) => {
-          alert('Error al enviar el correo. Inténtalo de nuevo.');
-        },
-      });
-    } else {
-      alert('Por favor, ingresa tu correo electrónico.');
-    }
+    console.log('Olvidé mi contraseña');
+    // Lógica para recuperar contraseña
   }
 
   goToRegister(): void {
+    console.log('Ir a registro');
+    // Redirige a la vista de crear cuenta
     this.router.navigate(['/register']);
   }
 }

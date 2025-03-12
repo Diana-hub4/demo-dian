@@ -1,18 +1,28 @@
 <div class="portal-contador-container">
   <!-- Barra superior con ayuda y nombre de usuario -->
   <div class="top-bar">
-    <button mat-button (click)="goToHelp()">Ayuda</button>
-    <button mat-button [matMenuTriggerFor]="userMenu">
-      Nombre del Usuario <mat-icon>arrow_drop_down</mat-icon>
-    </button>
+    <div class="user-actions">
+      <button mat-button class="help-button" (click)="goToHelp()">Ayuda</button>
+      <button mat-button class="user-button" [matMenuTriggerFor]="userMenu">
+        admin&#64;example.com<mat-icon>arrow_drop_down</mat-icon>
+      </button>
+    </div>
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item (click)="logout()">Cerrar sesión</button>
     </mat-menu>
   </div>
 
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <button mat-button class="menu-button" (click)="goToHome()">Inicio</button>
+    <button mat-button class="menu-button" (click)="goToAccounting()">Contabilidad</button>
+    <button mat-button class="menu-button" (click)="goToReports()">Reportes</button>
+    <button mat-button class="menu-button" (click)="goToAlliances()">Alianzas</button>
+  </div>
+
   <!-- Título y barra de búsqueda -->
   <div class="header">
-    <h1>Mis Clientes</h1>
+    <h1 class="client-title">Mis Clientes</h1>
     <p>Consulta y administra tus clientes de manera fácil y sencilla.</p>
     <div class="search-bar">
       <mat-form-field appearance="outline">

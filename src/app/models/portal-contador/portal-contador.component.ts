@@ -49,7 +49,25 @@ export class PortalContadorComponent {
     { empresa: 'gordito', nit: '0015', cedula: '10001013', plan: 'pro', estado: 'activo' },
     { empresa: 'guapo', nit: '0016', cedula: '10001014', plan: 'gratuito', estado: 'inactivo' },
   ];
+  // Método para ir a la página de inicio
+  goToHome(): void {
+    this.router.navigate(['/inicio']);
+  }
 
+  // Método para ir a la página de contabilidad
+  goToAccounting(): void {
+    this.router.navigate(['/contabilidad']);
+  }
+
+  // Método para ir a la página de reportes
+  goToReports(): void {
+    this.router.navigate(['/reportes']);
+  }
+
+  // Método para ir a la página de alianzas
+  goToAlliances(): void {
+    this.router.navigate(['/alianzas']);
+  }
   // Datos filtrados
   filteredClients = [...this.clients];
 

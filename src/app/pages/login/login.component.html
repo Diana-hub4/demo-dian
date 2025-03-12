@@ -1,34 +1,83 @@
 <div class="login-container">
-  <mat-card class="login-card">
-    <div class="login-header">
-      <h1 class="login-title">Bienvenido al Sistema de Contabilidad</h1>
-      <p class="login-subtitle">Inicia sesión para continuar</p>
-    </div>
+  <!-- Parte izquierda con la imagen -->
+  <div class="login-left"></div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-      <mat-form-field appearance="outline">
-        <mat-label>Correo Electrónico</mat-label>
-        <input matInput formControlName="email" type="email" required>
-        <mat-error *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-          Ingresa un correo válido.
-        </mat-error>
+  <!-- Parte derecha con el formulario -->
+  <div class="login-right">
+    <mat-card class="login-card">
+      <div class="login-header">
+        <h1 class="login-title">Bienvenido al Sistema de Contabilidad</h1>
+        <p class="login-subtitle">Inicia sesión para continuar</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo Electrónico</mat-label>
+          <input matInput formControlName="email" type="email" required>
+          @if (loginForm.controls['email'].invalid && loginForm.controls['email'].touched) {
+            <mat-error>Ingresa un correo válido.</mat-error>
+          }
+        </mat-form-field>
         
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="password" type="password" required>
+          @if (loginForm.controls['password'].invalid && loginForm.controls['password'].touched) {
+            <mat-error>La contraseña es requerida.</mat-error>
+          }
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input matInput formControlName="password" type="password" required>
-        <mat-error *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-          La contraseña es requerida.
-        </mat-error>
-      </mat-form-field>
+        <button mat-button class="login-button" type="submit">Ingresar</button>
+      </form>
 
-      <button mat-button class="login-button" type="submit">Ingresar</button>
-    </form>
+      <div class="login-actions">
+        <button mat-button (click)="onForgotPassword()">¿Olvidaste tu contraseña?</button>
+        <button mat-button (click)="goToRegister()">Registrarse</button>
+      </div>
 
-    <div class="login-actions">
-      <button mat-button (click)="onForgotPassword()">¿Olvidaste tu contraseña?</button>
-      <button mat-button (click)="goToRegister()">Crear una cuenta</button>
-    </div>
-  </mat-card>
+      <!-- Enlace para mostrar los Términos y Condiciones -->
+      <div class="login-footer">
+        <p class="terms">
+          <a (click)="mostrarTerminos = !mostrarTerminos">
+            {{ mostrarTerminos ? 'Ocultar' : 'Ver' }} Términos y Condiciones
+          </a>
+        </p>
+      </div>
+
+      <!-- Acordeón con los Términos y Condiciones -->
+      <mat-accordion>
+        <mat-expansion-panel [(expanded)]="mostrarTerminos">
+
+          <div class="terminos-condiciones-content">
+            <h2>1. Aceptación de los Términos y Condiciones</h2>
+            <p>
+              Al acceder y utilizar el Sistema de Contabilidad (en adelante, "el Sistema"), usted acepta cumplir con los siguientes Términos y Condiciones de Uso. Si no está de acuerdo con estos términos, absténgase de utilizar el Sistema.
+            </p>
+
+            <h2>2. Descripción del Servicio</h2>
+            <p>
+              El Sistema es una plataforma en línea diseñada para facilitar la gestión contable, financiera y fiscal de las empresas, cumpliendo con las normativas establecidas por la <a href="https://www.dian.gov.co" target="_blank">Dirección de Impuestos y Aduanas Nacionales (DIAN)</a> de Colombia.
+            </p>
+
+            <h2>3. Obligaciones del Usuario</h2>
+            <p>
+              El usuario se compromete a proporcionar información veraz y actualizada, cumplir con la normativa colombiana, y mantener la confidencialidad de sus credenciales.
+            </p>
+
+            <!-- Agrega más secciones según sea necesario -->
+
+            <h2>Consulta mas informacion</h2>
+            <ul>
+              <li>
+                <a href="https://www.dian.gov.co" target="_blank">DIAN - Dirección de Impuestos y Aduanas Nacionales</a>
+              </li>
+              <li>
+                <a href="https://www.mintic.gov.co" target="_blank">Ministerio de Tecnologías de la Información y las Comunicaciones</a>
+              </li>
+            </ul>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card>
+  </div>
 </div>

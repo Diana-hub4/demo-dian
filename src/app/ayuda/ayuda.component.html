@@ -1,64 +1,94 @@
 <div class="ayuda-container">
-    <!-- Barra superior con botón de regreso -->
-    <div class="top-bar">
+  <!-- Barra superior con botón de regreso -->
+  <div class="top-bar">
+    <div class="back-button">
       <button mat-button (click)="goBack()">
         <mat-icon>arrow_back</mat-icon> Regresar
       </button>
     </div>
-  
-    <!-- Buscador -->
+  </div>
+
+  <!-- Buscador -->
+  <div class="search-section">
     <div class="search-bar">
-      <mat-form-field appearance="outline">
-        <input matInput [(ngModel)]="searchTerm" placeholder="Buscar por frases o palabras clave" />
+      <mat-form-field appearance="outline" class="search-field">
+        <input matInput [(ngModel)]="searchTerm" placeholder="Busque por palabras o frases clave" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
-  
-    <!-- Botón de Preguntas Frecuentes -->
-    <div class="action-button">
-      <button mat-raised-button color="primary" (click)="goToFaq()">
-        Preguntas Frecuentes
-      </button>
-    </div>
-  
-    <!-- Guía de acceso a la plataforma -->
-    <div class="action-button">
-      <button mat-raised-button color="accent" (click)="downloadGuide()">
-        Guía de Acceso a la Plataforma
-      </button>
-    </div>
-  
-    <!-- Capacitaciones -->
-    <div class="action-button">
-      <button mat-raised-button color="primary" (click)="goToTutorials()">
-        Capacitaciones
-      </button>
-    </div>
-  
-    <!-- PQRSF -->
-    <div class="action-button">
-      <button mat-raised-button color="accent" (click)="goToPqrsf()">
-        PQRSF (Preguntas, Quejas, Reclamos, Sugerencias y Felicitaciones)
-      </button>
-    </div>
-  
-    <!-- WhatsApp -->
-    <div class="action-button">
-      <button mat-raised-button color="primary" (click)="openWhatsApp()">
-        <mat-icon>whatsapp</mat-icon> Contactar por WhatsApp
-      </button>
-    </div>
-  
-    <!-- Línea de atención -->
-    <div class="info-section">
-      <h3>Línea de Atención</h3>
-      <p>Teléfono: +57 123 456 7890</p>
-      <p>Horario: Lunes a Viernes, 9:00 AM - 4:00 PM</p>
-    </div>
-  
-  <div class="info-section">
-    <h3>Correo Electrónico</h3>
-    <p>
-      <a href="mailto:soporte&#64;sistemadecontabilidad.com">soporte&#64;sistemadecontabilidad.com</a>
-    </p>
+    <p class="search-message">Si la pregunta no es encontrada en preguntas frecuentes o en las guías de apoyo, la IA generará una respuesta a su solicitud y se verá reflejada en este espacio.</p>
   </div>
+
+  <!-- Secciones alineadas -->
+  <div class="sections-container">
+    <!-- Preguntas Frecuentes -->
+    <div class="faq-section">
+      <h2 class="faq-title">Preguntas Frecuentes</h2>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let item of faqItems">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="faq-question">
+              {{ item.question }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="faq-answer">{{ item.answer }}</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <!-- Guías -->
+    <div class="guide-section">
+      <h2 class="guide-title">Guías</h2>
+      <p>A continuación, encontrarás toda la información que necesitas para conocer el sistema y aprender los pasos fundamentales.</p>
+      <button mat-raised-button color="accent" (click)="downloadGuide()">
+        Descargar Guía de Acceso a la Plataforma
+      </button>
+    </div>
+
+    <!-- PQRSF -->
+    <div class="pqrsf-section">
+      <h2 class="pqrsf-title">PQRSF</h2>
+      <p>Selecciona el tipo de solicitud (Pregunta, Queja, Reclamo, Sugerencia o Felicitación) y describe tu solicitud de manera clara. Incluyendo tu nombre completo, número de teléfono y correo electrónico, para que podamos ayudarte.</p>
+      
+<!-- Campo de selección de tipo de solicitud -->
+    <!-- Campo de selección de tipo de solicitud -->
+    <mat-form-field appearance="outline" style="margin-bottom: 16px;">
+      <mat-select [(ngModel)]="pqrsfType" placeholder="Selecciona el tipo de solicitud">
+        <mat-option value="pregunta">Pregunta</mat-option>
+        <mat-option value="queja">Queja</mat-option>
+        <mat-option value="reclamo">Reclamo</mat-option>
+        <mat-option value="sugerencia">Sugerencia</mat-option>
+        <mat-option value="felicitacion">Felicitación</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+<!-- Campo de texto para la descripción -->
+    <mat-form-field appearance="outline">
+      <textarea matInput [(ngModel)]="pqrsfMessage" placeholder="Describa su solicitud (máximo 1000 caracteres)" maxlength="1000" rows="5"></textarea>
+    </mat-form-field>
+
+      <!-- Sección de carga de archivos -->
+      <div class="file-upload">
+        <input type="file" (change)="onFileSelected($event)" multiple />
+        <p>Puedes adjuntar imágenes o documentos como soporte.</p>
+      </div>
+
+      <!-- Botón de envío -->
+      <button mat-raised-button color="primary" (click)="submitPQRSF()">Enviar</button>
+    </div>
+  </div>
+
+  <!-- Línea de atención -->
+  <div class="info-section">
+    <h3>Línea de atención telefónica</h3>
+    <p>+57 300 000 0000</p>
+    <h3>Horario de atención</h3>
+    <p>Lunes a viernes de 9:00 AM - 4:00 PM</p>
+  </div>
+
+  <!-- Logos de WhatsApp y Correo -->
+  <div class="contact-icons">
+    <img src="../../../public/assets/images/whatsapp-icon-free-png.webp" alt="WhatsApp" (click)="openWhatsApp()" class="icon">
+    <img src="../../../public/assets/images/email-and-mail-icon-sign-symbol-design-free-png.webp" alt="Correo" (click)="openEmail()" class="icon">
+  </div>
+</div>

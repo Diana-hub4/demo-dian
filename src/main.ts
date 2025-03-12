@@ -3,7 +3,7 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http'; // Usa withFetch
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,14 +13,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelectModule } from '@angular/material/select'; // Añade MatSelectModule
+import { MatSelectModule } from '@angular/material/select';
 import { routes } from './app/app.routes';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withFetch()), // Usa withFetch aquí
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -30,6 +31,6 @@ bootstrapApplication(AppComponent, {
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSelectModule, // Añade MatSelectModule
+    MatSelectModule, provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));
