@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe  } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-facturacion',
   standalone: true, // Marca el componente como standalone
-  imports: [CommonModule, MatButtonModule], // Asegúrate de que CommonModule esté importado
+  imports: [CommonModule, MatButtonModule, CurrencyPipe], // Asegúrate de que CommonModule esté importado
   templateUrl: './facturacion.component.html',
   styleUrls: ['./facturacion.component.css'],
 })

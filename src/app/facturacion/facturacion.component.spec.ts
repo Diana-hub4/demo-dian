@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,  } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-facturacion',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, CurrencyPipe],
   templateUrl: './facturacion.component.html',
   styleUrls: ['./facturacion.component.css']
 })
