@@ -1,18 +1,30 @@
-<div class="facturacion-container">
-    <!-- Título y subtítulo -->
-    <h1 class="titulo">Portal del Cliente</h1>
-    <h2 class="subtitulo">Facturación</h2>
-  
-    <!-- Párrafo descriptivo -->
-    <p class="descripcion">
-      La facturación electrónica le permite respaldar sus transacciones de manera segura y cumplir con las normativas. A continuación, podrá generarla de forma rápida y eficiente.
-    </p>
-  
-    <!-- Contador de facturas usadas -->
-    <div class="contador-facturas">
-      <p>Sus facturas usadas son {{ facturasUsadas }} de {{ limiteFacturas }}.</p>
-    </div>
-  
-    <!-- Botón para generar factura -->
-    <button mat-raised-button color="primary" (click)="generarFactura()">Generar Factura</button>
+<div class="desglose-valores">
+  <div class="valor">
+    <span>Total Bruto:</span>
+    <span>{{ totalBruto | currency }}</span> <!-- Uso del pipe currency -->
   </div>
+  <div class="valor">
+    <span>Descuentos:</span>
+    <span>{{ descuentos | currency }}</span> <!-- Uso del pipe currency -->
+  </div>
+  <div class="valor">
+    <span>Subtotal:</span>
+    <span>{{ subtotal | currency }}</span> <!-- Uso del pipe currency -->
+  </div>
+  <div class="valor">
+    <span>Retefuente 1%:</span>
+    <span>{{ retefuente | currency }}</span> <!-- Uso del pipe currency -->
+  </div>
+  <div class="valor">
+    <span>RetelCA:</span>
+    <span>{{ retelCA | currency }}</span> <!-- Uso del pipe currency -->
+  </div>
+  <div class="valor">
+    <span>Copago/Anticipo:</span>
+    <span>{{ copagoAnticipo | currency }}</span> <!-- Uso del pipe currency -->
+  </div>
+  <div class="valor">
+    <span>Total Neto:</span>
+    <span>{{ totalNeto | currency }}</span> <!-- Uso del pipe currency -->
+  </div>
+</div>
