@@ -14,13 +14,20 @@
 
   <!-- Menú lateral -->
   <div class="sidebar">
-    <button mat-button class="menu-button" (click)="goToHome()">Inicio</button>
-    <button mat-button class="menu-button" (click)="goToAccounting()">Contabilidad</button>
-    <button mat-button class="menu-button" (click)="goToReports()">Reportes</button>
-    <button mat-button class="menu-button" (click)="goToAlliances()">Alianzas</button>
+    <button mat-button class="menu-button" (click)="goToHome()">
+      <mat-icon>home</mat-icon> Inicio
+    </button>
+    <button mat-button class="menu-button" (click)="goToAccounting()">
+      <mat-icon>folder</mat-icon> Contabilidad
+    </button>
+    <button mat-button class="menu-button" (click)="goToReports()">
+      <mat-icon>checklist</mat-icon> Reportes
+    </button>
+    <button mat-button class="menu-button" (click)="goToAlliances()">
+      <mat-icon>group</mat-icon> Alianzas
+    </button>
   </div>
 
-  <!-- Título y barra de búsqueda -->
   <div class="header">
     <h1 class="client-title">Mis Clientes</h1>
     <p>Consulta y administra tus clientes de manera fácil y sencilla.</p>

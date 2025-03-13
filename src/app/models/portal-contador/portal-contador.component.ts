@@ -49,28 +49,39 @@ export class PortalContadorComponent {
     { empresa: 'gordito', nit: '0015', cedula: '10001013', plan: 'pro', estado: 'activo' },
     { empresa: 'guapo', nit: '0016', cedula: '10001014', plan: 'gratuito', estado: 'inactivo' },
   ];
+
+
+
+    // Datos filtrados
+    filteredClients = [...this.clients];
+
+
   // Método para ir a la página de inicio
   goToHome(): void {
-    this.router.navigate(['/inicio']);
+    this.router.navigate(['/login']);
   }
 
   // Método para ir a la página de contabilidad
   goToAccounting(): void {
-    this.router.navigate(['/contabilidad']);
+    this.router.navigate(['/clientes']);
   }
 
   // Método para ir a la página de reportes
   goToReports(): void {
-    this.router.navigate(['/reportes']);
+    const report = {
+      facturas: 100,
+      nominas: 30,
+      documentosSoporte: 150,
+    };
+    console.log('Reporte generado:', report);
+    alert(`Reporte: Facturas: ${report.facturas}, Nóminas: ${report.nominas}, Documentos Soporte: ${report.documentosSoporte}`);
   }
 
   // Método para ir a la página de alianzas
   goToAlliances(): void {
     this.router.navigate(['/alianzas']);
   }
-  // Datos filtrados
-  filteredClients = [...this.clients];
-
+  
   // Configuración de la tabla
   displayedColumns: string[] = ['empresa', 'nit', 'cedula', 'plan', 'estado', 'acciones'];
   dataSource = new MatTableDataSource(this.filteredClients);
@@ -130,7 +141,7 @@ export class PortalContadorComponent {
 
   viewClientDetails(client: any): void {
     console.log('Acceso a la información completa de:', client);
-    this.router.navigate(['/acceso-informacion-completa']);
+    this.router.navigate(['/portal-cliente']);
   }
 
   // Método para manejar el cambio de página

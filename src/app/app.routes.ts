@@ -5,7 +5,6 @@ import { RegisterComponent } from '../app/models/pages/register/register.compone
 import { PortalContadorComponent } from 'app/models/portal-contador/portal-contador.component';
 import { AyudaComponent } from 'app/ayuda/ayuda.component';
 import { CapacitacionesComponent } from 'app/capacitaciones/capacitaciones.component';
-import { AccesoInformacionCompletaComponent } from './acceso-informacion-completa/acceso-informacion-completa.component';
 import { PortalClienteComponent } from './portal-cliente/portal-cliente/portal-cliente.component';
 import { FacturacionComponent } from './facturacion/facturacion.component'; // Importa el componente de facturación
 
@@ -22,7 +21,7 @@ export const routes: Routes = [
   { path: 'capacitaciones', component: CapacitacionesComponent },
   { path: 'portal-contador', component: PortalContadorComponent }, // Ruta del Portal del Contador
   { path: 'facturacion', component: FacturacionComponent },
-  { path: 'acceso-informacion-completa', component: AccesoInformacionCompletaComponent },
+  { path: 'portal-cliente',    component: PortalClienteComponent}, // Componente del Portal del Cliente
   { path: '', redirectTo: '/portal-contador', pathMatch: 'full' }, // Ruta por defecto
   { path: '', redirectTo: '/preguntas-frecuentes', pathMatch: 'full' }, // Ruta por defecto
   { path: '**', redirectTo: '/login' }, // Redirige a /login si la ruta no existe
@@ -32,6 +31,7 @@ export const routes: Routes = [
   { path: '**', redirectTo: '/portal-contador' }, // Redirige a Portal del Contador si la ruta no existe  { path: 'register', component: RegisterComponent }, // Ruta de la vista de crear cuenta
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta por defecto
   { path: '**', redirectTo: '/login' }, // Redirige a login si la ruta no existe
+  
 ];
 
 
