@@ -7,6 +7,16 @@ body, html {
   font-family: 'Roboto', sans-serif;
 }
 
+/* Estilos para la flecha de retroceso */
+mat-icon {
+  color: #1e3c72;
+  cursor: pointer;
+}
+
+mat-icon:hover {
+  color: #95acb6;
+}
+
 /* Contenedor principal */
 .login-container {
   display: flex;
