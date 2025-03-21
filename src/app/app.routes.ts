@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from '../app/pages/login/login.component';
 import { ForgotPasswordComponent } from '../app/pages/forgot-password/forgot-password.component';
-import { RegisterComponent } from '../app/models/pages/register/register.component';
-import { PortalContadorComponent } from 'app/models/portal-contador/portal-contador.component';
+import { RegisterComponent } from './register/register.component';
+import { PortalContadorComponent } from 'app/portal-contador/portal-contador.component';
 import { AyudaComponent } from 'app/ayuda/ayuda.component';
 import { CapacitacionesComponent } from 'app/capacitaciones/capacitaciones.component';
 import { PortalClienteComponent } from './portal-cliente/portal-cliente/portal-cliente.component';

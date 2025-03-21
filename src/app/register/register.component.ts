@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+//src/app/register/register.component.ts
+import { Component, inject  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 
 // Importaciones de Angular Material
 import { MatCardModule } from '@angular/material/card';
@@ -9,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule, 
     MatCardModule,         // Módulo para mat-card
     MatFormFieldModule,    // Módulo para mat-form-field
     MatInputModule,        // Módulo para mat-input
@@ -26,9 +30,13 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  private baseUrl: string = environment.url;
+  
   registerForm: FormGroup;
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -39,23 +47,45 @@ export class RegisterComponent {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.registerForm.valid) {
-      const userData = this.registerForm.value;
+      const userData = {
+        id: crypto.randomUUID(), // Genera un UUID en frontend (opcional, si el backend lo genera omítelo)
+        name: this.registerForm.get('nombre')?.value,
+        last_name: this.registerForm.get('apellido')?.value,
+        role: this.registerForm.get('cargo')?.value,
+        identification_number: this.registerForm.get('cedula')?.value,
+        email: this.registerForm.get('usuario')?.value, // Se asume que "usuario" es el correo electrónico
+        permissions: 'client', // Valor por defecto
+        password: this.registerForm.get('password')?.value
+      };
       console.log('Datos del usuario:', userData);
-      this.saveUserData(userData);
-      this.router.navigate(['/login']);
+      try {
+        await this.saveUserData(userData);
+        alert('Usuario registrado con éxito');
+        this.router.navigate(['/login']);
+      } catch (error) {
+        console.error('Error al guardar el usuario:', error);
+        alert('Ocurrió un error al guardar el usuario');
+      }
     } else {
       console.log('Formulario inválido');
       alert('Por favor, completa el formulario correctamente');
     }
   }
 
-  saveUserData(userData: any): void {
+  async saveUserData(userData: any): Promise<void> {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     users.push(userData);
     localStorage.setItem('users', JSON.stringify(users));
+
+    
+    const url = `${this.baseUrl}/users/`; // http://localhost:8000/users/
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log('URL:', url);
+    console.log('Headers:', headers);
     console.log('Usuario guardado en localStorage:', userData);
+    await this.http.post(url, userData, { headers }).toPromise();
   }
 
   goToLogin(): void {

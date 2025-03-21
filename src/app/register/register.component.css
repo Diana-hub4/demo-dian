@@ -1,7 +1,7 @@
 /* register.component.css */
 :host {
   display: block;
-  background-color: #3f51b5; /* Color azul de Material Design */
+  background-color: #2c5db8; /* Color azul de Material Design */
   min-height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
   padding: 20px;
 }
