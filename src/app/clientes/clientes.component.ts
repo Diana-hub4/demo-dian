@@ -1,16 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-
 
 @Component({
   selector: 'app-clientes',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule],
-  templateUrl: './clientes.component.HTML',
+  standalone: true, // Asegúrate de que sea standalone
+  templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.css'],
 })
-export class ProveedoresComponent {
+export class ClientesComponent {
+
   // Métodos utilizados en el HTML
   cancelar() {
     console.log('Cancelar cliente');

@@ -1,58 +1,58 @@
 <div class="portal-cliente-container">
-    <!-- Menú lateral -->
-    <div class="sidebar">
-      <h2>Bienvenido, Usuario</h2>
-      <button mat-button class="menu-button" (click)="mostrarSeccion('facturacion')">
-        <mat-icon>receipt</mat-icon> Facturación
-      </button>
-      <button mat-button class="menu-button" (click)="mostrarSeccion('documentos-soporte')">
-        <mat-icon>description</mat-icon> Documentos Soporte
-      </button>
-      <button mat-button class="menu-button" (click)="mostrarSeccion('nomina')">
-        <mat-icon>payments</mat-icon> Nómina
-      </button>
-      <button mat-button class="menu-button" (click)="mostrarSeccion('proveedores')">
-        <mat-icon>local_shipping</mat-icon> Proveedores
-      </button>
-      <button mat-button class="menu-button" (click)="mostrarSeccion('clientes')">
-        <mat-icon>people</mat-icon> Clientes
-      </button>
-      <button mat-button class="menu-button" (click)="mostrarSeccion('envio')">
-        <mat-icon>send</mat-icon> Envío
-      </button>
-      <button mat-button class="menu-button" (click)="mostrarSeccion('nube')">
-        <mat-icon>cloud</mat-icon> Nube
-      </button>
-    </div>
-  
-    <!-- Contenido dinámico -->
-    <div class="content">
-      <ng-container *ngIf="seccionActual === 'facturacion'">
-        <app-facturacion></app-facturacion>
-      </ng-container>
-  
-      <ng-container *ngIf="seccionActual === 'documentos-soporte'">
-        <app-documentos-soporte></app-documentos-soporte>
-      </ng-container>
-  
-      <ng-container *ngIf="seccionActual === 'nomina'">
-        <app-nomina></app-nomina>
-      </ng-container>
-  
-      <ng-container *ngIf="seccionActual === 'proveedores'">
-        <app-proveedores></app-proveedores>
-      </ng-container>
-  
-      <ng-container *ngIf="seccionActual === 'clientes'">
-        <app-clientes></app-clientes>
-      </ng-container>
-  
-      <ng-container *ngIf="seccionActual === 'envio'">
-        <app-envio></app-envio>
-      </ng-container>
-  
-      <ng-container *ngIf="seccionActual === 'nube'">
-        <app-nube></app-nube>
-      </ng-container>
-    </div>
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <h2 class="client-title">Bienvenido, Usuario</h2>
+    <button mat-button class="menu-button" (click)="mostrarSeccion('facturacion')">
+      <mat-icon>receipt</mat-icon> Facturación
+    </button>
+    <button mat-button class="menu-button" (click)="mostrarSeccion('documentos-soporte')">
+      <mat-icon>description</mat-icon> Documentos Soporte
+    </button>
+    <button mat-button class="menu-button" (click)="mostrarSeccion('nomina')">
+      <mat-icon>payments</mat-icon> Nómina
+    </button>
+    <button mat-button class="menu-button" (click)="mostrarSeccion('proveedores')">
+      <mat-icon>local_shipping</mat-icon> Proveedores
+    </button>
+    <button mat-button class="menu-button" (click)="mostrarSeccion('clientes')">
+      <mat-icon>people</mat-icon> Clientes
+    </button>
+    <button mat-button class="menu-button" (click)="mostrarSeccion('envio')">
+      <mat-icon>send</mat-icon> Envío
+    </button>
+    <button mat-button class="menu-button" (click)="mostrarSeccion('nube')">
+      <mat-icon>cloud</mat-icon> Nube
+    </button>
   </div>
+
+  <!-- Contenido dinámico -->
+  <div class="content">
+    <ng-container *ngIf="seccionActual === 'facturacion'">
+      <app-facturacion></app-facturacion>
+    </ng-container>
+
+    <ng-container *ngIf="seccionActual === 'documentos-soporte'">
+      <app-documentos-soporte></app-documentos-soporte>
+    </ng-container>
+
+    <ng-container *ngIf="seccionActual === 'nomina'">
+      <app-nomina></app-nomina>
+    </ng-container>
+
+    <ng-container *ngIf="seccionActual === 'proveedores'">
+      <app-proveedores></app-proveedores>
+    </ng-container>
+
+    <ng-container *ngIf="seccionActual === 'clientes'">
+      <app-clientes></app-clientes>
+    </ng-container>
+
+    <ng-container *ngIf="seccionActual === 'envio'">
+      <app-envio></app-envio>
+    </ng-container>
+
+    <ng-container *ngIf="seccionActual === 'nube'">
+      <app-nube></app-nube>
+    </ng-container>
+  </div>
+</div>

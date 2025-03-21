@@ -30,6 +30,28 @@
         <button mat-button class="login-button" type="submit">Ingresar</button>
       </form>
 
+      <!-- Formulario de recuperación de contraseña -->
+      <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()" class="login-form" *ngIf="showForgotPassword">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo Electrónico</mat-label>
+          <input matInput formControlName="email" type="email" required>
+          @if (forgotPasswordForm.controls['email'].invalid && forgotPasswordForm.controls['email'].touched) {
+            <mat-error>Ingresa un correo válido.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Número de Teléfono</mat-label>
+          <input matInput formControlName="phone" type="tel" required>
+          @if (forgotPasswordForm.controls['phone'].invalid && forgotPasswordForm.controls['phone'].touched) {
+            <mat-error>Ingresa un número de teléfono válido.</mat-error>
+          }
+        </mat-form-field>
+
+        <button mat-button class="login-button" type="submit">Enviar </button>
+        <button mat-button (click)="showForgotPassword = false">Volver al Inicio de Sesión</button>
+      </form>
+
       <div class="login-actions">
         <button mat-button (click)="onForgotPassword()">¿Olvidaste tu contraseña?</button>
         <button mat-button (click)="goToRegister()">Registrarse</button>
