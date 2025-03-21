@@ -1,12 +1,19 @@
 /* register.component.css */
+:host {
+  display: block;
+  background-color: #3f51b5; /* Color azul de Material Design */
+  min-height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
+  padding: 20px;
+}
+
 .register-card {
   max-width: 500px;
+  width: 100%;
   margin: auto;
-  margin-top: 50px;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco con transparencia */
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
 }
 
 .register-header {

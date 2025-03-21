@@ -38,12 +38,18 @@
       <!-- Cédula -->
       <mat-form-field appearance="outline">
         <mat-label>Cédula</mat-label>
-        <input matInput formControlName="cedula" required />
+        <input
+          matInput
+          formControlName="cedula"
+          required
+          (input)="onCedulaInput($event)" 
+        />
         <mat-icon matSuffix>badge</mat-icon>
         <mat-error *ngIf="registerForm.get('cedula')?.invalid">
           La cédula es requerida.
         </mat-error>
       </mat-form-field>
+
 
       <!-- Contraseña -->
       <mat-form-field appearance="outline">

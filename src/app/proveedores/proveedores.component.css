@@ -1,0 +1,76 @@
+.facturacion-container {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    font-weight: 600; /* Semibold */
+    color: #143470;
+    margin-bottom: 10px;
+  }
+  
+  .subtitulo {
+    font-size: 24px;
+    font-weight: 600; /* Semibold */
+    color: #2c5db8;
+    margin-bottom: 20px;
+  }
+  
+  .descripcion {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .contenedor-principal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .columna-izquierda, .columna-derecha {
+    width: 48%;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  .form-group input, .form-group select, .form-group button {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .botones-accion {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .botones-accion button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .botones-accion .cancelar {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .botones-accion .guardar {
+    background-color: #4caf50;
+    color: white;
+  }

@@ -4,6 +4,7 @@
   background: linear-gradient(135deg, #143470, #2c5db8);
   min-height: 100vh;
   position: relative;
+  color: white !important;
 }
 
 .top-bar {
@@ -26,9 +27,11 @@
 .search-section {
   text-align: left;
   margin-bottom: 20px;
+  color: white !important;
 }
 
 .search-bar {
+  color: white !important;
   width: 100%;
   max-width: 500px;
   margin-bottom: 10px;

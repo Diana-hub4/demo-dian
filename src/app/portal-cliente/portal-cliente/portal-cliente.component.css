@@ -1,32 +1,73 @@
+/* Estilos generales */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+
 .portal-cliente-container {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .sidebar {
-    width: 250px;
-    background-color: #143470;
-    padding: 20px;
-    color: white;
-  }
-  
-  .sidebar h2 {
-    margin-bottom: 20px;
-  }
-  
-  .menu-button {
-    width: 100%;
-    text-align: left;
-    color: white;
-    margin-bottom: 10px;
-  }
-  
-  .menu-button:hover {
-    background-color: #2c5db8;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
+  display: flex;
+  height: 100vh;
+}
+
+/* Estilos para el menú lateral */
+.sidebar {
+  width: 250px;
+  background-color: #143470; /* Fondo azul */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Estilos para el título */
+.client-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 20px;
+  color: #ffffff; /* Color blanco para el título */
+}
+
+/* Estilos para los botones del menú */
+.menu-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white; /* Texto blanco */
+  text-align: left;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  background-color: transparent; /* Fondo transparente */
+  border: none;
+  cursor: pointer;
+}
+
+.menu-button mat-icon {
+  margin-right: 10px;
+  color: white; /* Color de iconos claro */
+}
+
+/* Efecto hover para los botones */
+.menu-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente al pasar el mouse */
+}
+
+/* Estilo para el botón activo */
+.menu-button.active {
+  background-color: rgba(255, 255, 255, 0.2); /* Fondo más oscuro para el botón activo */
+}
+
+/* Estilos para el contenido */
+.content {
+  flex: 1;
+  background-color: #f5f5f5; /* Fondo blanco hueso */
+  padding: 20px;
+  overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es largo */
+}

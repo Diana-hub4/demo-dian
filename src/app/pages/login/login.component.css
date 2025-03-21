@@ -119,6 +119,7 @@ mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline {
 .login-button {
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 20px; /* Ajusta este valor según el espacio que necesites */
   background: linear-gradient(90deg, #1e3c72, #1e3c72);
   color: white;
   font-weight: bold;

@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { CommonModule } from '@angular/common'; // Importa CommonModule
-import { Router } from '@angular/router'; // Importa Router
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,18 +24,26 @@ import { Router } from '@angular/router'; // Importa Router
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-
 export class LoginComponent {
-  mostrarTerminos: boolean = false; // Define la propiedad aquí
+  mostrarTerminos: boolean = false;
+  showForgotPassword: boolean = false; // Controla la visibilidad del formulario de recuperación
   loginForm: FormGroup;
+  forgotPasswordForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router // Inyecta Router
   ) {
+    // Formulario de inicio de sesión
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+    });
+
+    // Formulario de recuperación de contraseña
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]], // Validación para 10 dígitos
     });
   }
 
@@ -48,8 +56,16 @@ export class LoginComponent {
   }
 
   onForgotPassword(): void {
-    console.log('Olvidé mi contraseña');
-    // Lógica para recuperar contraseña
+    this.showForgotPassword = true; // Muestra el formulario de recuperación
+  }
+
+  onForgotPasswordSubmit(): void {
+    if (this.forgotPasswordForm.valid) {
+      const email = this.forgotPasswordForm.value.email;
+      const phone = this.forgotPasswordForm.value.phone;
+      console.log('Solicitud de recuperación:', { email, phone });
+
+    }
   }
 
   goToRegister(): void {

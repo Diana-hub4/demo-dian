@@ -61,4 +61,12 @@ export class RegisterComponent {
   goToLogin(): void {
     this.router.navigate(['/login']);
   }
+
+  // Método para permitir solo números en el campo de cédula
+  onCedulaInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    input.value = value.replace(/[^0-9]/g, ''); // Elimina todo lo que no sea número
+    this.registerForm.get('cedula')?.setValue(input.value); // Actualiza el valor en el formulario
+  }
 }

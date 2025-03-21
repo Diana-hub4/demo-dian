@@ -63,9 +63,19 @@
     </mat-form-field>
 
 <!-- Campo de texto para la descripción -->
+ 
+  <div class="pqrsf-textarea-container">
     <mat-form-field appearance="outline">
-      <textarea matInput [(ngModel)]="pqrsfMessage" placeholder="Describa su solicitud (máximo 1000 caracteres)" maxlength="1000" rows="5"></textarea>
+      <textarea
+        matInput 
+        [(ngModel)]="pqrsfMessage" 
+        placeholder="Describa su solicitud (máximo 1000 caracteres)" 
+        maxlength="1000" rows="5"
+        rows="5"
+      ></textarea>
     </mat-form-field>
+  </div>
+
 
       <!-- Sección de carga de archivos -->
       <div class="file-upload">
@@ -82,14 +92,13 @@
   <div class="info-section">
     <h3>Línea de atención telefónica</h3>
     <p>+57 300 000 0000</p>
-    +
-    <h3>Horario de atención</h3>
+      <h3>Horario de atención</h3>
     <p>Lunes a viernes de 9:00 AM - 4:00 PM</p>
   </div>
 
   <!-- Logos de WhatsApp y Correo -->
   <div class="contact-icons">
-    <img src="../../../public/assets/images/whatsapp-icon-free-png.webp" alt="WhatsApp" (click)="openWhatsApp()" class="icon">
-    <img src="../../../public/assets/images/email-and-mail-icon-sign-symbol-design-free-png.webp" alt="Correo" (click)="openEmail()" class="icon">
+    <img src="../assets/images/whatsapp-icon-free-png.webp" alt="WhatsApp" (click)="openWhatsApp()" class="icon">
+    <img src="../assets/images/email-and-mail-icon-sign-symbol-design-free-png.webp" alt="Correo" (click)="openEmail()" class="icon">
   </div>
 </div>

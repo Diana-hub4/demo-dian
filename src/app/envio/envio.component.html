@@ -1,1 +1,47 @@
-<p>envio works!</p>
+<!-- Párrafo descriptivo -->
+<p>
+    La función de enviar y reenviar facturas o documentos contables permite compartir de manera rápida y segura la información con clientes, proveedores o entidades, garantizando el cumplimiento de obligaciones fiscales y facilitando la gestión contable.
+  </p>
+  
+  <!-- Botón de búsqueda y campo de entrada -->
+  <div class="search-container">
+    <input
+      type="text"
+      placeholder="Buscar cliente por nombre o cédula, o factura por número"
+      #searchInput
+    />
+    <button (click)="buscar(searchInput.value)">Buscar</button>
+  </div>
+  
+  <!-- Tabla dinámica -->
+  <table>
+    <thead>
+      <tr>
+        <th>Empresa</th>
+        <th>NIT/Cédula</th>
+        <th>Estado</th>
+        <th>Plan</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+        @for (factura of facturas; track factura.nit) {
+          <tr>
+            <td>{{ factura.empresa }}</td>
+            <td>{{ factura.nit }}</td>
+            <td>{{ factura.estado }}</td>
+            <td>{{ factura.plan }}</td>
+            <td>
+              <button (click)="enviarFactura(factura.correo, factura)">
+                Enviar al correo registrado
+              </button>
+              <button (click)="enviarFactura('nuevoCorreo@example.com', factura)">
+                Enviar a otro correo
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+  </table>
+
+  
