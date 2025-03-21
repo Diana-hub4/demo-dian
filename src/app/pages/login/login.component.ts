@@ -9,6 +9,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-login',
@@ -34,7 +37,8 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router // Inyecta Router
+    private router: Router, // Inyecta Router
+    private http: HttpClient
   ) {
     // Formulario de inicio de sesión
     this.loginForm = this.fb.group({
@@ -51,11 +55,28 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      console.log('Formulario enviado:', this.loginForm.value);
-      // Redirige al Portal del Contador
-      this.router.navigate(['/portal-contador']);
+      const loginData = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+
+      const url = `${environment.url}/login`;
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      this.http.post(url, loginData, { headers }).subscribe({
+        next: (response: any) => {
+          console.log('Inicio de sesión exitoso:', response);
+          // Redirigir al usuario a la página correspondiente
+          this.router.navigate(['/portal-contador']);
+        },
+        error: (error) => {
+          console.error('Error en el inicio de sesión:', error);
+          alert('Correo electrónico o contraseña incorrectos');
+        }
+      });
     }
   }
+  
   onForgotPassword(): void {
     this.showForgotPassword = true; // Muestra el formulario de recuperación
   }
