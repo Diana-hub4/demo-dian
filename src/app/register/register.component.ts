@@ -74,17 +74,11 @@ export class RegisterComponent {
     }
   }
 
-  async saveUserData(userData: any): Promise<void> {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    users.push(userData);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    
+  async saveUserData(userData: any): Promise<void> {   
     const url = `${this.baseUrl}/users/`; // http://localhost:8000/users/
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     console.log('URL:', url);
     console.log('Headers:', headers);
-    console.log('Usuario guardado en localStorage:', userData);
     await this.http.post(url, userData, { headers }).toPromise();
   }
 

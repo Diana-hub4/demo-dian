@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject   } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from 'environments/environment';
+import { HttpClient, HttpHeaders, HttpClientModule  } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -25,14 +27,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  private baseUrl: string = environment.url;
+
   mostrarTerminos: boolean = false;
   showForgotPassword: boolean = false; // Controla la visibilidad del formulario de recuperación
   loginForm: FormGroup;
   forgotPasswordForm: FormGroup;
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router // Inyecta Router
+    private fb: FormBuilder
   ) {
     // Formulario de inicio de sesión
     this.loginForm = this.fb.group({
@@ -47,12 +52,31 @@ export class LoginComponent {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       console.log('Formulario enviado:', this.loginForm.value);
-      // Redirige al Portal del Contador
-      this.router.navigate(['/portal-contador']);
+      const loginData = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      }; 
+      console.log('Datos del login:', loginData);
+      try {
+        await this.validateLogin(loginData);
+        alert('Usuario logeado con éxito');
+        this.router.navigate(['/portal-contador']);
+      } catch (error) {
+        console.error('Error al logear el usuario:', error);
+        alert('Ocurrió un error al logear el usuario');
+      }
     }
+  }
+
+  async validateLogin(loginData: any): Promise<void> {   
+    const url = `${this.baseUrl}/login`; // http://localhost:8000/users/
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log('URL:', url);
+    console.log('Headers:', headers);
+    await this.http.post(url, loginData, { headers }).toPromise();
   }
 
   onForgotPassword(): void {

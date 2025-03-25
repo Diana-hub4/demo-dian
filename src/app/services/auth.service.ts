@@ -17,7 +17,6 @@ export class AuthService {
     private router: Router, // Inyecta Router para redirecciones
     @Inject(PLATFORM_ID) private platformId: Object // Inyecta PLATFORM_ID
   ) {
-    // Cargar usuarios almacenados del localStorage al iniciar
     if (this.isBrowser()) {
       const storedUsers = localStorage.getItem('registeredUsers');
       if (storedUsers) {
