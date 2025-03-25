@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -22,6 +23,7 @@ import { HttpClient, HttpHeaders, HttpClientModule  } from '@angular/common/http
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatIconModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
@@ -78,7 +80,7 @@ export class LoginComponent {
     console.log('Headers:', headers);
     await this.http.post(url, loginData, { headers }).toPromise();
   }
-
+  
   onForgotPassword(): void {
     this.showForgotPassword = true; // Muestra el formulario de recuperación
   }
@@ -88,8 +90,11 @@ export class LoginComponent {
       const email = this.forgotPasswordForm.value.email;
       const phone = this.forgotPasswordForm.value.phone;
       console.log('Solicitud de recuperación:', { email, phone });
-
     }
+  }
+
+  onBack(): void {
+    this.showForgotPassword = false; // Oculta el formulario de recuperación
   }
 
   goToRegister(): void {
