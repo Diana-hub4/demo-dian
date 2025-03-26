@@ -43,7 +43,7 @@ export class ForgotPasswordComponent {
       const nombre = 'Usuario'; // Nombre quemado
       const enlaceRecuperacion = 'https://tuempresa.com/reset-password'; // Enlace quemado
 
-      this.http.post('http://localhost:3000/send-email', { email, nombre, enlaceRecuperacion })
+      this.http.post('http://localhost:8000/forgot-password', { email, nombre, enlaceRecuperacion })
         .subscribe({
           next: (response) => {
             console.log('Correo enviado:', response);
