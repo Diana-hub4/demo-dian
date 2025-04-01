@@ -1,6 +1,6 @@
 //src/app/register/register.component.ts
 import { Component, inject  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
@@ -24,7 +24,7 @@ import { environment } from 'environments/environment';
     MatFormFieldModule,    // Módulo para mat-form-field
     MatInputModule,        // Módulo para mat-input
     MatIconModule,         // Módulo para mat-icon
-    MatButtonModule        // Módulo para mat-button
+    MatButtonModule        // Módulo para mat-button 
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
@@ -42,9 +42,22 @@ export class RegisterComponent {
       apellido: ['', Validators.required],
       usuario: ['', Validators.required],
       cedula: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]], // Contraseña con mínimo 6 caracteres
-      cargo: ['', Validators.required]
-    });
+      cargo: ['', Validators.required],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(8), 
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+      ]],
+      confirmPassword: ['', Validators.required]
+    }, { validator: this.passwordMatchValidator });
+  }
+
+  // Validador personalizado para coincidencia de contraseñas
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
 
   async onSubmit(): Promise<void> {
@@ -57,9 +70,11 @@ export class RegisterComponent {
         identification_number: this.registerForm.get('cedula')?.value,
         email: this.registerForm.get('usuario')?.value, // Se asume que "usuario" es el correo electrónico
         permissions: 'client', // Valor por defecto
-        password: this.registerForm.get('password')?.value
+        password: this.registerForm.get('password')?.value,
+        status:'inactivo'
       };
       console.log('Datos del usuario:', userData);
+      console.log('Formulario válido', this.registerForm.value);
       try {
         await this.saveUserData(userData);
         alert('Usuario registrado con éxito');
