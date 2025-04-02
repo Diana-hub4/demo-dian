@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select'; // Importar MatSelectModule
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PqrsfService } from '../services/pqrsf.service';
 
 @Component({
   selector: 'app-ayuda',
@@ -22,10 +24,13 @@ import { MatSelectModule } from '@angular/material/select'; // Importar MatSelec
     MatInputModule,
     FormsModule,
     MatExpansionModule,
-    MatSelectModule, // Añadir MatSelectModule
+    MatSelectModule, 
   ],
 })
 export class AyudaComponent {
+removeFile(_t101: number) {
+throw new Error('Method not implemented.');
+}
   searchTerm: string = '';
   pqrsfType: string = '';
   pqrsfMessage: string = '';
@@ -42,7 +47,11 @@ export class AyudaComponent {
   ];
 downloading: any;
 
-  constructor(private router: Router) {}
+constructor(
+  private router: Router,
+  private pqrsfService: PqrsfService,
+  private snackBar: MatSnackBar
+) {}
 
   // Regresar a la vista anterior
   goBack(): void {
@@ -56,8 +65,24 @@ downloading: any;
 
   // Manejar la selección de archivos
   onFileSelected(event: any): void {
-    this.selectedFiles = event.target.files;
+    const files: FileList = event.target.files;
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].size > maxSize) {
+        this.snackBar.open(`El archivo ${files[i].name} excede el tamaño máximo de 5MB`, 'Cerrar', {
+          duration: 5000
+        });
+        continue;
+      }
+      this.selectedFiles.push(files[i]);
+    }
+    
+    // Limpiar el input para permitir seleccionar el mismo archivo otra vez
+    event.target.value = '';
   }
+  
+ 
   // Abrir WhatsApp
   openWhatsApp(): void {
     window.open('https://wa.me/5731234567890', '_blank');
@@ -69,9 +94,36 @@ downloading: any;
   }
   // Enviar PQRSF
   submitPQRSF(): void {
-    console.log('Tipo de PQRSF:', this.pqrsfType);
-    console.log('Mensaje:', this.pqrsfMessage);
-    console.log('Archivos adjuntos:', this.selectedFiles);
-    alert('Su PQRSF ha sido enviado correctamente.');
+    if (!this.pqrsfType || !this.pqrsfMessage) {
+      this.snackBar.open('Por favor complete todos los campos requeridos', 'Cerrar', {
+        duration: 3000
+      });
+      return;
+    }
+
+    this.pqrsfService.enviarPQRSF(
+      this.pqrsfType,
+      this.pqrsfMessage,
+      Array.from(this.selectedFiles)
+    ).subscribe({
+      next: (response) => {
+        this.snackBar.open('PQRSF enviada correctamente', 'Cerrar', {
+          duration: 3000
+        });
+        this.resetPQRSFForm();
+      },
+      error: (err) => {
+        console.error('Error al enviar PQRSF:', err);
+        this.snackBar.open('Error al enviar PQRSF. Por favor intente nuevamente.', 'Cerrar', {
+          duration: 3000
+        });
+      }
+    });
+  }
+
+  private resetPQRSFForm(): void {
+    this.pqrsfType = '';
+    this.pqrsfMessage = '';
+    this.selectedFiles = [];
   }
 }
