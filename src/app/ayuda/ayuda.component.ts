@@ -40,6 +40,7 @@ export class AyudaComponent {
     { question: '¿Cómo gestiono las retenciones en la fuente?', answer: 'Las retenciones en la fuente se gestionan desde la sección de impuestos.' },
     { question: '¿Qué debo hacer si olvido mi contraseña?', answer: 'Puede restablecer su contraseña utilizando la opción "Olvidé mi contraseña" en la página de login.' }
   ];
+downloading: any;
 
   constructor(private router: Router) {}
 
@@ -50,7 +51,7 @@ export class AyudaComponent {
 
   // Descargar la guía de acceso
   downloadGuide(): void {
-    window.open('/assets/manual-usuario.pdf', '_blank');
+    window.open('http://localhost:8000/descargar-guia', '_blank');
   }
 
   // Manejar la selección de archivos

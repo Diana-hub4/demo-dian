@@ -41,9 +41,10 @@
       <h2 class="guide-title">Guías</h2>
       <p>A continuación, encontrarás toda la información que necesitas para conocer el sistema y aprender los pasos fundamentales.</p>
       <button mat-raised-button color="accent" (click)="downloadGuide()">
-        Descargar Guía de Acceso a la Plataforma
+        <mat-icon>download</mat-icon>
+        Descargar Guía Completa (PDF)
       </button>
-    </div>
+      <div *ngIf="downloading" class="loading-message">Preparando descarga...</div>
 
     <!-- PQRSF -->
     <div class="pqrsf-section">
