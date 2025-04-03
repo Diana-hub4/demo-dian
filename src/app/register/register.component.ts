@@ -30,7 +30,7 @@ import { environment } from 'environments/environment';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  private baseUrl: string = environment.url;
+  private baseUrl: string = environment.apiUrl;
   
   registerForm: FormGroup;
   private http = inject(HttpClient);
@@ -90,7 +90,7 @@ export class RegisterComponent {
   }
 
   async saveUserData(userData: any): Promise<void> {   
-    const url = `${this.baseUrl}/users/`; // http://localhost:8000/users/
+    const url = `${this.baseUrl}/users/`; // http://localhost:8000/register/
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     console.log('URL:', url);
     console.log('Headers:', headers);

@@ -1,5 +1,5 @@
-//src/environments/environment.ts
+// src/environments/environment.ts
 export const environment = {
     production: false,
-    url: "http://localhost:8000"
-};
+    apiUrl: 'http://localhost:8000' // Cambia 'url' por 'apiUrl'
+  };

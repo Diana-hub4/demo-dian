@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders, HttpClientModule  } from '@angular/common/http';
+import { AuthService } from '../../auth/auth.service'; // Ajusta la ruta
+import { OnInit } from '@angular/core'; 
 
 @Component({
   selector: 'app-login',
@@ -28,59 +30,40 @@ import { HttpClient, HttpHeaders, HttpClientModule  } from '@angular/common/http
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  private baseUrl: string = environment.url;
-
-  mostrarTerminos: boolean = false;
-  showForgotPassword: boolean = false; // Controla la visibilidad del formulario de recuperación
-  loginForm: FormGroup;
-  forgotPasswordForm: FormGroup;
-  private http = inject(HttpClient);
-  private router = inject(Router);
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  forgotPasswordForm!: FormGroup;
+  showForgotPassword = false;
+  baseUrl = 'http://localhost:8000'; // O usa environment.url
+  mostrarTerminos = false;
 
   constructor(
-    private fb: FormBuilder
-  ) {
-    // Formulario de inicio de sesión
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
+    private fb: FormBuilder,
+    private router: Router,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
-    // Formulario de recuperación de contraseña
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],  // Cambiado de email a username
+      password: ['', Validators.required]
+    });
+    this.router.navigate(['/portal-cliente']); 
+
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]], // Validación para 10 dígitos
+      phone: ['']
     });
   }
 
-  async onSubmit(): Promise<void> {
-    if (this.loginForm.valid) {
-      console.log('Formulario enviado:', this.loginForm.value);
-      const loginData = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password,
-      }; 
-      console.log('Datos del login:', loginData);
-      try {
-        await this.validateLogin(loginData);
-        alert('Usuario logeado con éxito');
-        this.router.navigate(['/portal-contador']);
-      } catch (error) {
-        console.error('Error al logear el usuario:', error);
-        alert('Ocurrió un error al logear el usuario');
-      }
-    }
+  onSubmit(): void {
+this.authService.login(
+  this.loginForm.value.username,  // Cambiado de email a username
+  this.loginForm.value.password
+)
   }
 
-  async validateLogin(loginData: any): Promise<void> {   
-    const url = `${this.baseUrl}/login`; // http://localhost:8000/users/
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log('URL:', url);
-    console.log('Headers:', headers);
-    await this.http.post(url, loginData, { headers }).toPromise();
-  }
-  
   onForgotPassword(): void {
     this.showForgotPassword = true; // Muestra el formulario de recuperación
   }
@@ -118,6 +101,7 @@ export class LoginComponent {
     
     return this.http.post(url, body, { headers }).toPromise();
   }
+
 }
 
 

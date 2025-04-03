@@ -1,9 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http'; // Usa withFetch
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,12 +15,24 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { routes } from './app/app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { AuthGuard } from './app/auth/auth.guard';
+import { JwtInterceptor } from 'app/auth/jwt.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
     provideRouter(routes),
-    provideHttpClient(withFetch()), // Usa withFetch aquí
+    provideHttpClient(
+      withFetch(),
+      withInterceptorsFromDi() // Habilita interceptores basados en DI
+    ),
+    // Registra el interceptor como proveedor
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    AuthGuard,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -31,6 +42,7 @@ bootstrapApplication(AppComponent, {
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSelectModule, provideAnimationsAsync(),
+    MatSelectModule, 
+    provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));

@@ -7,31 +7,52 @@ import { CapacitacionesComponent } from 'app/capacitaciones/capacitaciones.compo
 import { PortalClienteComponent } from './portal-cliente/portal-cliente/portal-cliente.component';
 import { FacturacionComponent } from './facturacion/facturacion.component'; // Importa el componente de facturación
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 export const routes: Routes = [
-  { path: 'portal-cliente', component: PortalClienteComponent },
-  { path: '', component: LoginComponent }, // Ruta por defecto (Login)
-  { path: 'forgot-password', component: ResetPasswordComponent },
-  { path: 'register', component: RegisterComponent },
+  // Rutas públicas
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'ayuda', component: AyudaComponent },
-  { path: 'capacitaciones', component: CapacitacionesComponent },
-  { path: 'portal-contador', component: PortalContadorComponent }, // Ruta del Portal del Contador
-  { path: 'facturacion', component: FacturacionComponent },
-  { path: 'portal-cliente',    component: PortalClienteComponent}, // Componente del Portal del Cliente
-  {  path: 'reset-password', component: ResetPasswordComponent },// No ForgotPasswordComponent
-  { path: '', redirectTo: '/portal-contador', pathMatch: 'full' }, // Ruta por defecto
-  { path: '', redirectTo: '/preguntas-frecuentes', pathMatch: 'full' }, // Ruta por defecto
-  { path: '**', redirectTo: '/login' }, // Redirige a /login si la ruta no existe
-  { path: '', component: LoginComponent }, // Ruta por defecto (Login)
-  { path: 'login', component: LoginComponent }, // Ruta del Portal del Contador
-  { path: '', redirectTo: '/portal-contador', pathMatch: 'full' }, // Ruta por defecto
-  { path: '**', redirectTo: '/portal-contador' }, // Redirige a Portal del Contador si la ruta no existe  { path: 'register', component: RegisterComponent }, // Ruta de la vista de crear cuenta
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta por defecto
-  { path: '**', redirectTo: '/login' }, // Redirige a login si la ruta no existe
-  
-];
+  { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ResetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
 
+  // Rutas protegidas
+  { 
+    path: 'portal-contador', 
+    component: PortalContadorComponent,
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'portal-cliente', 
+    component: PortalClienteComponent,
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'ayuda', 
+    component: AyudaComponent,
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'capacitaciones', 
+    component: CapacitacionesComponent,
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'portal-cliente', 
+    component: PortalClienteComponent,
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'facturacion', 
+    component: FacturacionComponent,
+    canActivate: [AuthGuard] 
+  },
+
+  // Redirecciones
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
+];
 
 
