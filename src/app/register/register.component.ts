@@ -43,6 +43,7 @@ export class RegisterComponent {
       usuario: ['', Validators.required],
       cedula: ['', Validators.required],
       cargo: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
@@ -68,7 +69,7 @@ export class RegisterComponent {
         last_name: this.registerForm.get('apellido')?.value,
         role: this.registerForm.get('cargo')?.value,
         identification_number: this.registerForm.get('cedula')?.value,
-        email: this.registerForm.get('usuario')?.value, // Se asume que "usuario" es el correo electrónico
+        email: this.registerForm.get('email')?.value,
         permissions: 'client', // Valor por defecto
         password: this.registerForm.get('password')?.value,
         status:'inactivo'

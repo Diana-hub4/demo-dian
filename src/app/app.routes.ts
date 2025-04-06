@@ -14,6 +14,12 @@ export const routes: Routes = [
   // Rutas públicas
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  { 
+    path: 'portal-contador', 
+    component: PortalContadorComponent,
+    canActivate: [AuthGuard], // Protege la ruta
+    data: { requiredRole: 'contador' } 
+  },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ResetPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },

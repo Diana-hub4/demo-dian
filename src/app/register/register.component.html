@@ -71,6 +71,15 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required />
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="registerForm.get('email')?.invalid">
+          El email es requerido.
+        </mat-error>
+      </mat-form-field>
+      
       <!-- Cargo -->
       <mat-form-field appearance="outline">
         <mat-label>Cargo</mat-label>

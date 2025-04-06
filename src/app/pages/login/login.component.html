@@ -5,36 +5,42 @@
   <!-- Parte derecha con el formulario -->
   <div class="login-right">
     <mat-card class="login-card">
-      <div class="login-header">
+      <mat-card-header class="login-header">
         <!-- Título condicional -->
-        <h1 class="login-title">
+        <mat-card-title class="login-title">
           {{ showForgotPassword ? 'Recuperar Contraseña' : 'Bienvenido al Sistema de Contabilidad' }}
-        </h1>
-      </div>
+        </mat-card-title>
+
         <!-- Subtítulo condicional -->
-        <p class="login-subtitle">
+        <mat-card-subtitle class="login-subtitle">
           {{ showForgotPassword ? 'Rellene los campos para recuperar su contraseña' : 'Inicia sesión para continuar' }}
-        </p>
-            
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
 <!-- Formulario de inicio de sesión -->
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" *ngIf="!showForgotPassword">
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form" *ngIf="!showForgotPassword">
   <mat-form-field appearance="outline">
-    <mat-label>Correo Electrónico</mat-label>
-    <input matInput formControlName="email" type="email" required>
+    <mat-label>Usuario</mat-label>
+    <input matInput formControlName="email" required>
+    <mat-icon matSuffix>account_circle</mat-icon>
     @if (loginForm.controls['email'].invalid && loginForm.controls['email'].touched) {
-      <mat-error>Ingresa un correo válido.</mat-error>
+      <mat-error>Ingresa un usuario válido</mat-error>
     }
   </mat-form-field>
   
   <mat-form-field appearance="outline">
     <mat-label>Contraseña</mat-label>
     <input matInput formControlName="password" type="password" required>
+    <mat-icon matSuffix>lock</mat-icon>
     @if (loginForm.controls['password'].invalid && loginForm.controls['password'].touched) {
-      <mat-error>La contraseña es requerida.</mat-error>
+      <mat-error>La contraseña es requerida</mat-error>
     }
   </mat-form-field>
 
-  <button mat-button class="login-button" type="submit">Ingresar</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" class="login-button">
+    Ingresar
+  </button>
 </form>
 
       <!-- Formulario de recuperación de contraseña -->
@@ -43,73 +49,70 @@
           <mat-label>Correo Electrónico</mat-label>
           <input matInput formControlName="email" type="email" required>
           @if (forgotPasswordForm.controls['email'].invalid && forgotPasswordForm.controls['email'].touched) {
-            <mat-error>Ingresa un correo válido.</mat-error>
+            <mat-error>Ingresa un correo válido</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Número de Teléfono</mat-label>
-          <input matInput formControlName="phone" type="tel" required>
+          <input matInput formControlName="phone" type="tel">
           @if (forgotPasswordForm.controls['phone'].invalid && forgotPasswordForm.controls['phone'].touched) {
-            <mat-error>Ingresa un número de teléfono válido.</mat-error>
+            <mat-error>Ingresa un número válido</mat-error>
           }
         </mat-form-field>
 
-        <button mat-button class="login-button" type="submit">Enviar</button>
-        <button mat-icon-button (click)="onBack()">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="forgotPasswordForm.invalid">Enviar</button>
+          <button mat-button (click)="togglePasswordRecovery()">
+            <mat-icon>arrow_back</mat-icon> Volver
+          </button>
+        </div>
       </form>
 
-      <div class="login-actions" *ngIf="!showForgotPassword">
-        <button mat-button (click)="onForgotPassword()">¿Olvidaste tu contraseña?</button>
-        <button mat-button (click)="goToRegister()">Registrarse</button>
+     <!-- Términos y condiciones dentro del mat-card-content -->
+    <div class="terms-container" *ngIf="mostrarTerminos">
+      <div class="terminos-condiciones-content">
+        <h2>1. Aceptación de los Términos y Condiciones</h2>
+        <p>
+          Al acceder y utilizar el Sistema de Contabilidad (en adelante, "el Sistema"), usted acepta cumplir con los siguientes Términos y Condiciones de Uso. Si no está de acuerdo con estos términos, absténgase de utilizar el Sistema.
+        </p>
+
+        <h2>2. Descripción del Servicio</h2>
+        <p>
+          El Sistema es una plataforma en línea diseñada para facilitar la gestión contable, financiera y fiscal de las empresas, cumpliendo con las normativas establecidas por la <a href="https://www.dian.gov.co" target="_blank">Dirección de Impuestos y Aduanas Nacionales (DIAN)</a> de Colombia.
+        </p>
+
+        <h2>3. Obligaciones del Usuario</h2>
+        <p>
+          El usuario se compromete a proporcionar información veraz y actualizada, cumplir con la normativa colombiana, y mantener la confidencialidad de sus credenciales.
+        </p>
+
+        <h2>Consulta mas información</h2>
+        <ul>
+          <li>
+            <a href="https://www.dian.gov.co" target="_blank">DIAN - Dirección de Impuestos y Aduanas Nacionales</a>
+          </li>
+          <li>
+            <a href="https://www.mintic.gov.co" target="_blank">Ministerio de Tecnologías de la Información y las Comunicaciones</a>
+          </li>
+        </ul>
       </div>
+    </div>
+  </mat-card-content>
 
+  <mat-card-actions class="login-actions" *ngIf="!showForgotPassword">
+    <button mat-button (click)="onForgotPassword()">¿Olvidaste tu contraseña?</button>
+    <button mat-button (click)="goToRegister()">Registrarse</button>
+  </mat-card-actions>
 
-      <!-- Enlace para mostrar los Términos y Condiciones -->
-      <div class="login-footer">
+      <!-- Enlace para mostrar/ocultar términos -->
+      <mat-card-footer class="login-footer">
         <p class="terms">
           <a (click)="mostrarTerminos = !mostrarTerminos">
             {{ mostrarTerminos ? 'Ocultar' : 'Ver' }} Términos y Condiciones
           </a>
         </p>
-      </div>
-
-      <!-- Acordeón con los Términos y Condiciones -->
-      <mat-accordion>
-        <mat-expansion-panel [(expanded)]="mostrarTerminos">
-
-          <div class="terminos-condiciones-content">
-            <h2>1. Aceptación de los Términos y Condiciones</h2>
-            <p>
-              Al acceder y utilizar el Sistema de Contabilidad (en adelante, "el Sistema"), usted acepta cumplir con los siguientes Términos y Condiciones de Uso. Si no está de acuerdo con estos términos, absténgase de utilizar el Sistema.
-            </p>
-
-            <h2>2. Descripción del Servicio</h2>
-            <p>
-              El Sistema es una plataforma en línea diseñada para facilitar la gestión contable, financiera y fiscal de las empresas, cumpliendo con las normativas establecidas por la <a href="https://www.dian.gov.co" target="_blank">Dirección de Impuestos y Aduanas Nacionales (DIAN)</a> de Colombia.
-            </p>
-
-            <h2>3. Obligaciones del Usuario</h2>
-            <p>
-              El usuario se compromete a proporcionar información veraz y actualizada, cumplir con la normativa colombiana, y mantener la confidencialidad de sus credenciales.
-            </p>
-
-            <!-- Agrega más secciones según sea necesario -->
-
-            <h2>Consulta mas informacion</h2>
-            <ul>
-              <li>
-                <a href="https://www.dian.gov.co" target="_blank">DIAN - Dirección de Impuestos y Aduanas Nacionales</a>
-              </li>
-              <li>
-                <a href="https://www.mintic.gov.co" target="_blank">Ministerio de Tecnologías de la Información y las Comunicaciones</a>
-              </li>
-            </ul>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+      </mat-card-footer>
     </mat-card>
   </div>
 </div>

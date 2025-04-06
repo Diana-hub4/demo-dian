@@ -1,6 +1,5 @@
-import { Component, inject   } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,10 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { environment } from 'environments/environment';
-import { HttpClient, HttpHeaders, HttpClientModule  } from '@angular/common/http';
-import { AuthService } from '../../auth/auth.service'; // Ajusta la ruta
-import { OnInit } from '@angular/core'; 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,26 +27,29 @@ import { OnInit } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
+
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   forgotPasswordForm!: FormGroup;
   showForgotPassword = false;
-  baseUrl = 'http://localhost:8000'; // O usa environment.url
   mostrarTerminos = false;
 
   constructor(
     private fb: FormBuilder,
+    private authService: AuthService,
     private router: Router,
-    private http: HttpClient,
-    private authService: AuthService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
+    this.initializeForms();
+  }
+
+  private initializeForms(): void {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],  // Cambiado de email a username
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-    this.router.navigate(['/portal-cliente']); 
 
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -57,51 +57,64 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-this.authService.login(
-  this.loginForm.value.username,  // Cambiado de email a username
-  this.loginForm.value.password
-)
-  }
+  onLogin(): void {
+    if (this.loginForm.valid) {
+      return;
+    }
+      const credentials = {
+        email: this.loginForm.value.username, // Cambiado a 'email' para coincidir con backend
+        password: this.loginForm.value.password
+      };
 
-  onForgotPassword(): void {
-    this.showForgotPassword = true; // Muestra el formulario de recuperación
-  }
-
-  onBack(): void {
-    this.showForgotPassword = false; // Oculta el formulario de recuperación
-  }
-
-  goToRegister(): void {
-    console.log('Ir a registro');
-    // Redirige a la vista de crear cuenta
-    this.router.navigate(['/register']);
-  }
+      this.authService.login(credentials).subscribe({
+        next: (response) => {
+          this.router.navigate(['/portal-contador']);
+        },
+        error: (err) => {
+          console.error('Login error:', err);
+          alert('Credenciales incorrectas. Por favor intente nuevamente.');
+        }
+      });
+    }
   
-  async onForgotPasswordSubmit(): Promise<void> {
-    if (this.forgotPasswordForm.valid) {
-      const email = this.forgotPasswordForm.value.email;
-      const phone = this.forgotPasswordForm.value.phone;
-      
-      try {
-        const response = await this.sendForgotPasswordRequest(email, phone);
-        alert(response.message); // Muestra el mensaje del backend
-        this.showForgotPassword = false; // Oculta el formulario después del envío
-      } catch (error) {
-        console.error('Error al solicitar recuperación:', error);
-        alert('Se produjo un error al procesar tu solicitud');
-      }
+  private handleLoginSuccess(response: any): void {
+    // Redirección según rol de usuario
+    if (response.user?.role === 'accountant') {
+      this.router.navigate(['/portal-contador']);
+    } else if (response.user?.role === 'client') {
+      this.router.navigate(['/portal-cliente']);
+    } else {
+      this.router.navigate(['/dashboard']);
     }
   }
 
-  private async sendForgotPasswordRequest(email: string, phone: string): Promise<any> {
-    const url = `${this.baseUrl}/forgot-password`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { email, phone }; // Asegúrate que coincida con ForgotPasswordRequest en el backend
-    
-    return this.http.post(url, body, { headers }).toPromise();
+  togglePasswordRecovery(): void {
+    this.showForgotPassword = !this.showForgotPassword;
   }
 
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
+
+  async onForgotPasswordSubmit(): Promise<void> {
+    if (this.forgotPasswordForm.valid) {
+      return;
+    }
+      try {
+        const response = await this.authService.forgotPassword(
+          this.forgotPasswordForm.value.email,
+          this.forgotPasswordForm.value.phone
+        );
+        alert('Instrucciones enviadas a tu correo');
+        this.showForgotPassword = false;
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error al procesar la solicitud');
+      }
+    }
+  
+  onForgotPassword() {
+    // Implementación básica si necesitas otra forma de manejar esto
+    this.togglePasswordRecovery();
+  }
 }
-
-
