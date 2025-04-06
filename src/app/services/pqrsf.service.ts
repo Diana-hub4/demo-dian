@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PqrsfService {
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'http://localhost:8000/';
 
   constructor(private http: HttpClient) { }
 

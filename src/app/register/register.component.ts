@@ -95,6 +95,7 @@ export class RegisterComponent {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     console.log('URL:', url);
     console.log('Headers:', headers);
+    console.log('Body:', userData);
     await this.http.post(url, userData, { headers }).toPromise();
   }
 

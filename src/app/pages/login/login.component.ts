@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    if (this.loginForm.valid) {
+    if (!this.loginForm.valid) {
       return;
     }
       const credentials = {
@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
   }
 
   async onForgotPasswordSubmit(): Promise<void> {
-    if (this.forgotPasswordForm.valid) {
+    if (!this.forgotPasswordForm.valid) {
       return;
     }
       try {
