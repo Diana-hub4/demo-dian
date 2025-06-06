@@ -1,0 +1,116 @@
+<div class="portal-contador-container">
+  <!-- Barra superior con ayuda y nombre de usuario -->
+  <div class="top-bar">
+    <div class="user-actions">
+      <button mat-button class="help-button" (click)="goToHelp()">Ayuda</button>
+      <button mat-button class="user-button" [matMenuTriggerFor]="userMenu">
+        admin&#64;example.com<mat-icon>arrow_drop_down</mat-icon>
+      </button>
+    </div>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="logout()">Cerrar sesión</button>
+    </mat-menu>
+  </div>
+
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <button mat-button class="menu-button" (click)="goToHome()">
+      <mat-icon>home</mat-icon> Inicio
+    </button>
+    <button mat-button class="menu-button" (click)="goToAccounting()">
+      <mat-icon>folder</mat-icon> Contabilidad
+    </button>
+    <button mat-button class="menu-button" (click)="goToReports()">
+      <mat-icon>checklist</mat-icon> Reportes
+    </button>
+    <button mat-button class="menu-button" (click)="goToAlliances()">
+      <mat-icon>group</mat-icon> Alianzas
+    </button>
+  </div>
+
+  <div class="header">
+    <h1 class="client-title">Mis Clientes</h1>
+    <p>Consulta y administra tus clientes de manera fácil y sencilla.</p>
+    <div class="search-bar">
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          [(ngModel)]="searchTerm"
+          placeholder="Buscar por nombre, cédula o NIT"
+          (input)="searchClients()"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Tabla de clientes -->
+  <div class="client-table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Columnas de la tabla -->
+      <ng-container matColumnDef="empresa">
+        <th mat-header-cell *matHeaderCellDef>Empresa</th>
+        <td mat-cell *matCellDef="let client">{{ client.empresa }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nit">
+        <th mat-header-cell *matHeaderCellDef>NIT</th>
+        <td mat-cell *matCellDef="let client">{{ client.nit }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cedula">
+        <th mat-header-cell *matHeaderCellDef>Cédula</th>
+        <td mat-cell *matCellDef="let client">{{ client.cedula }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="plan">
+        <th mat-header-cell *matHeaderCellDef>Plan</th>
+        <td mat-cell *matCellDef="let client">{{ client.plan }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let client">
+          <span [class.active]="client.estado === 'activo'" [class.inactive]="client.estado === 'inactivo'">
+            {{ client.estado }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let client">
+          <button mat-button [matMenuTriggerFor]="actionsMenu">Acciones</button>
+          <mat-menu #actionsMenu="matMenu">
+            <button mat-menu-item (click)="createElectronicInvoice(client)">
+              Crear Factura Electrónica
+            </button>
+            <button mat-menu-item (click)="createSupportDocument(client)">
+              Crear Documento Soporte
+            </button>
+            <button mat-menu-item (click)="createElectronicPayroll(client)">
+              Crear Nómina Electrónica
+            </button>
+            <button mat-menu-item (click)="viewClientDetails(client)">
+              Acceso a la Información Completa
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <!-- Filas de la tabla -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!-- Paginación -->
+    <mat-paginator
+      [pageSizeOptions]="pageSizeOptions"
+      showFirstLastButtons
+      [length]="filteredClients.length"
+      [pageSize]="pageSize"
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

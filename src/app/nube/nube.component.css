@@ -1,0 +1,34 @@
+/* Estilos para el título */
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para el párrafo descriptivo */
+  p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  /* Estilos para el contenedor de botones */
+  .button-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+  }
+  
+  /* Estilos para los botones */
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }

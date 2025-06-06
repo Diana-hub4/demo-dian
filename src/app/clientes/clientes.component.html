@@ -1,0 +1,58 @@
+<div class="facturacion-container">
+    <h1 class="titulo">Portal del Cliente</h1>
+    <h2 class="subtitulo">Clientes</h2>
+    <p class="descripcion">
+        Los clientes son personas naturales o jurídicas que contratan los servicios de un contador o firma contable para llevar el control de sus finanzas, cumplir con las obligaciones tributarias y obtener asesoría en materia fiscal, laboral y contable.    </p>
+  
+    <div class="contenedor-principal">
+      <!-- Columna izquierda -->
+      <div class="columna-izquierda">
+        <div class="form-group">
+          <label for="empresa">Empresa</label>
+          <input type="text" id="empresa" name="empresa" placeholder="Nombre del comercio o persona">
+        </div>
+        <div class="form-group">
+          <label for="nit">NIT o Cédula</label>
+          <input type="text" id="nit" name="nit" placeholder="NIT o Cédula con dígito de verificación">
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <input type="text" id="descripcion" name="descripcion" placeholder="Razón del negocio (parqueadero, comida, etc.)">
+        </div>
+        <div class="form-group">
+          <label for="correo">Correo Electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="Ingrese el correo electrónico">
+        </div>
+      </div>
+  
+      <!-- Columna derecha -->
+      <div class="columna-derecha">
+        <div class="form-group">
+          <label for="numero">Número</label>
+          <input type="text" id="numero" name="numero" placeholder="Número de contacto">
+        </div>
+        <div class="form-group">
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Dirección">
+        </div>
+        <div class="form-group">
+          <label for="ciudad">Ciudad</label>
+          <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad">
+        </div>
+        <div class="form-group">
+          <label for="regimen">Tipo de Régimen</label>
+          <select id="regimen" name="regimen">
+            <option value="simplificado">Simplificado</option>
+            <option value="comun">Común</option>
+            <option value="especial">Especial</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <button type="button" class="cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="button" class="guardar" (click)="guardar()">Guardar</button>
+    </div>
+  </div>

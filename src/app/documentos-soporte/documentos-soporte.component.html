@@ -1,0 +1,119 @@
+<div class="facturacion-container">
+    <h1 class="titulo">Portal del Cliente</h1>
+    <h2 class="subtitulo">Documento Soporte</h2>
+    <p class="descripcion">
+      Un documento soporte es un comprobante digital para transacciones menores o pagos que no requieren factura electrónica. Puedes generarlo fácilmente en nuestro sistema.
+    </p>
+  
+    <div class="contenedor-principal">
+      <!-- Columna izquierda -->
+      <div class="columna-izquierda">
+        <div class="form-group">
+          <label for="tipoDocumento">Tipo</label>
+          <select id="tipoDocumento" name="tipoDocumento">
+            <option value="tipo1">Tipo 1</option>
+            <option value="tipo2">Tipo 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" name="fecha">
+        </div>
+        <div class="form-group">
+          <label for="proveedor">Proveedor</label>
+          <input type="text" id="proveedor" name="proveedor" placeholder="Buscar proveedor">
+        </div>
+        <div class="form-group">
+          <label for="correo">Correo Electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="Ingrese el correo electrónico">
+        </div>
+      </div>
+  
+      <!-- Columna derecha -->
+      <div class="columna-derecha">
+        <div class="form-group">
+          <label for="descuento">% de Descuento</label>
+          <input type="number" id="descuento" name="descuento" placeholder="% de descuento">
+        </div>
+        <div class="form-group">
+          <label for="numero">Número</label>
+          <input type="text" id="numero" name="numero" placeholder="Número de documento">
+        </div>
+        <div class="form-group">
+          <label for="comprobante">Número de Comprobante</label>
+          <input type="text" id="comprobante" name="comprobante" placeholder="Número de comprobante">
+        </div>
+        <div class="form-group">
+          <label for="cargarDocumentos">Cargar Documentos</label>
+          <button type="button" id="cargarDocumentos">Cargar</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tabla de transacciones -->
+    <div class="tabla-productos">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Transacción</th>
+            <th>Item</th>
+            <th>Cantidad</th>
+            <th>Valor Unitario</th>
+            <th>% Descuento</th>
+            <th>Impuesto Cargo</th>
+            <th>Impuesto Retención</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><input type="text" placeholder="Transacción"></td>
+            <td><input type="text" placeholder="Item"></td>
+            <td><input type="number" placeholder="Cantidad"></td>
+            <td><input type="number" placeholder="Valor Unitario"></td>
+            <td><input type="number" placeholder="% Descuento"></td>
+            <td><input type="number" placeholder="Impuesto Cargo"></td>
+            <td><input type="number" placeholder="Impuesto Retención"></td>
+            <td><input type="number" placeholder="Valor Total"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <button type="button" class="cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="button" class="guardar" (click)="guardar()">Guardar</button>
+    </div>
+  
+    <!-- Formas de Pago -->
+    <div class="formas-pago">
+      <h2 class="titulo-formas-pago">Formas de Pago</h2>
+      <div class="seleccion-forma-pago">
+        <label for="formaPago">Seleccione su forma de pago:</label>
+        <select id="formaPago" name="formaPago">
+          <option value="efectivo">Efectivo</option>
+          <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+          <option value="transferencia">Transferencia Bancaria</option>
+          <option value="otro">Otro</option>
+        </select>
+        <button type="button" class="agregar-forma-pago" (click)="agregarFormaPago()">+</button>
+      </div>
+      <div class="desglose-valores">
+        <div class="valor">
+          <span>Total Bruto:</span>
+          <span>{{ totalBruto | currency }}</span>
+        </div>
+        <div class="valor">
+          <span>Descuentos:</span>
+          <span>{{ descuentos | currency }}</span>
+        </div>
+        <div class="valor">
+          <span>Total Neto:</span>
+          <span>{{ totalNeto | currency }}</span>
+        </div>
+      </div>
+    </div>
+  </div>

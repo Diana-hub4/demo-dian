@@ -1,12 +1,37 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
-import express from 'express';
+import express, { Request, Response } from 'express'; // Importa Request y Response
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
+import { sendPasswordResetEmail } from './sendEmail';
 
-// The Express app is exported so that it can be used by serverless Functions.
-export function app(): express.Express {
+// Crea una instancia de Express
+const app = express();
+
+// Middleware para parsear JSON
+app.use(express.json());
+
+// Ruta para restablecer la contraseña
+app.post('/forgot-password', (req: Request, res: Response) => {
+  const { email } = req.body;
+
+  // Generar una contraseña temporal
+  const temporaryPassword = '1A2V3';
+
+  // Enviar el correo electrónico
+  sendPasswordResetEmail(email, temporaryPassword);
+
+  res.status(200).json({ message: 'Correo enviado con la contraseña temporal.' });
+});
+
+// Iniciar el servidor en el puerto 3000
+app.listen(3000, () => {
+  console.log('Servidor backend corriendo en http://localhost:3000');
+});
+
+// Función para configurar y exportar la aplicación Express
+export function createApp(): express.Express {
   const server = express();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -17,16 +42,14 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
+  // Servir archivos estáticos desde /browser
   server.get('**', express.static(browserDistFolder, {
     maxAge: '1y',
     index: 'index.html',
   }));
 
-  // All regular routes use the Angular engine
-  server.get('**', (req, res, next) => {
+  // Todas las rutas regulares usan el motor de Angular
+  server.get('**', (req: Request, res: Response, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
 
     commonEngine
@@ -44,14 +67,16 @@ export function app(): express.Express {
   return server;
 }
 
+// Función para iniciar el servidor
 function run(): void {
   const port = process.env['PORT'] || 4000;
 
-  // Start up the Node server
-  const server = app();
+  // Iniciar el servidor Node
+  const server = createApp();
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
 
+// Ejecutar la función run
 run();

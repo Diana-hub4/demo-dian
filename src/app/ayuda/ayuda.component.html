@@ -1,0 +1,135 @@
+<div class="ayuda-container">
+  <!-- Barra superior con botón de regreso -->
+  <div class="top-bar">
+    <div class="back-button">
+      <button mat-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Regresar
+      </button>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="search-section">
+    <div class="search-bar">
+      <mat-form-field appearance="outline" class="search-field">
+        <input matInput [(ngModel)]="searchTerm" placeholder="Busque por palabras o frases clave" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <p class="search-message">Si la pregunta no es encontrada en preguntas frecuentes o en las guías de apoyo, la IA generará una respuesta a su solicitud y se verá reflejada en este espacio.</p>
+  </div>
+
+  <!-- Secciones alineadas -->
+  <div class="sections-container">
+    <!-- Preguntas Frecuentes -->
+    <div class="section-column faq-section">
+      <h2>Preguntas Frecuentes</h2>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let item of faqItems">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ item.question }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{ item.answer }}</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <!-- Guías -->
+    <div class="section-column guide-section">
+      <h2>Guías</h2>
+      <p>A continuación, encontrarás toda la información que necesitas para conocer el sistema y aprender los pasos fundamentales.</p>
+      <button mat-raised-button color="accent" (click)="downloadGuide()">
+        <mat-icon>download</mat-icon>
+        Descargar Guía Completa (PDF)
+      </button>
+      <div *ngIf="downloading" class="loading-message">Preparando descarga...</div>
+    </div>
+
+    <!-- PQRSF -->
+    <div class="pqrsf-section">
+      <h2>PQRSF</h2>
+      <p>Selecciona el tipo de solicitud y describe tu requerimiento:</p>
+      
+      <form (ngSubmit)="submitPQRSF()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Tipo de solicitud</mat-label>
+          <mat-select [(ngModel)]="pqrsfType" name="tipo" required>
+            <mat-option value="pregunta">Pregunta</mat-option>
+            <mat-option value="queja">Queja</mat-option>
+            <mat-option value="reclamo">Reclamo</mat-option>
+            <mat-option value="sugerencia">Sugerencia</mat-option>
+            <mat-option value="felicitacion">Felicitación</mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="pqrsfMessage"
+            name="mensaje"
+            required
+            maxlength="1000"
+            rows="5"
+            placeholder="Describa su solicitud (máximo 1000 caracteres)"
+          ></textarea>
+          <mat-hint align="end">{{pqrsfMessage.length}}/1000</mat-hint>
+        </mat-form-field>
+    
+        <div class="file-upload-container">
+          <label class="file-upload-button">
+            <mat-icon>attach_file</mat-icon>
+            Adjuntar archivos
+            <input 
+              type="file" 
+              (change)="onFileSelected($event)" 
+              multiple
+              accept=".pdf,.doc,.docx,.jpg,.png"
+              #fileInput
+              hidden
+            />
+          </label>
+
+          <p>Formatos aceptados: PDF, Word, JPG, PNG (Máx. 5MB cada uno)</p>
+          <div *ngIf="selectedFiles.length > 0" class="file-list">
+            <p>Archivos seleccionados:</p>
+            <ul>
+              <li *ngFor="let file of selectedFiles; let i = index">
+                {{file.name}} ({{(file.size/1024/1024).toFixed(2)}} MB)
+                <button mat-icon-button (click)="removeFile(i)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+    
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit"
+          [disabled]="!pqrsfType || !pqrsfMessage"
+        >
+          <mat-icon>send</mat-icon>
+          Enviar PQRSF
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Línea de atención -->
+  <div class="info-section">
+    <h3>Línea de atención telefónica</h3>
+    <p>+57 300 000 0000</p>
+    <h3>Horario de atención</h3>
+    <p>Lunes a viernes de 9:00 AM - 4:00 PM</p>
+  </div>
+
+  <!-- Logos de WhatsApp y Correo -->
+  <div class="contact-icons">
+    <img src="../assets/images/whatsapp-icon-free-png.webp" alt="WhatsApp" (click)="openWhatsApp()" class="icon">
+    <img src="../assets/images/email-and-mail-icon-sign-symbol-design-free-png.webp" alt="Correo" (click)="openEmail()" class="icon">
+  </div>
+</div>
